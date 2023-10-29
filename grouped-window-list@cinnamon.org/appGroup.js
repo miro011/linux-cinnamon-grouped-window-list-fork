@@ -254,7 +254,7 @@ class AppGroup {
     }
 
     setIconPadding(panelHeight) {
-        this.iconBox.style = 'padding: 0px';
+        this.iconBox.style = `padding: 0px; width: ${this.iconSize}px; height: ${this.iconSize}px;`;
         if (!this.state.isHorizontal) return;
         this.actor.style = 'padding-left: 0px; padding-right: 0px;';
     }
@@ -283,6 +283,8 @@ class AppGroup {
                 icon_size: this.iconSize
             });
         }
+
+        icon.icon_size = this.iconSize - parseInt(this.state.settings.appButtonsPadding);
 
         let oldChild = this.iconBox.get_child();
         this.iconBox.set_child(icon);

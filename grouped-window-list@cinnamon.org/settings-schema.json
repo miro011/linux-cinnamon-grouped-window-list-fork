@@ -42,7 +42,8 @@
         "number-display",
         "pinned-apps",
         "enable-app-button-dragging",
-        "app-buttons-margin"
+        "app-buttons-margin",
+        "app-buttons-padding"
       ]
     },
     "hotKeysSection": {
@@ -157,12 +158,21 @@
   },
   "app-buttons-margin": {
     "type": "spinbutton",
-    "default": 5,
+    "default": 0,
     "min": 0,
-    "max": 30,
+    "max": 50,
     "step": 1,
     "units": "px",
-    "description": "Distance between icons"
+    "description": "Distance between buttons"
+  },
+  "app-buttons-padding": {
+    "type": "spinbutton",
+    "default": 0,
+    "min": 0,
+    "max": 50,
+    "step": 1,
+    "units": "px",
+    "description": "Space inside buttons"
   },
   "launcher-animation-effect": {
     "type": "combobox",
