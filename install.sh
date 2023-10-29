@@ -18,7 +18,7 @@ if [ -d "$targetDir" ]; then
     rm -r "$targetDir"
 fi
 scriptFolderDir=$(dirname "$0")
-sudo cp -r "$scriptFolderDir/grouped-window-list@cinnamon.org" "/home/$USER/.local/share/cinnamon/applets/grouped-window-list@cinnamon.org"
+cp -r "$scriptFolderDir/grouped-window-list@cinnamon.org" "/home/$USER/.local/share/cinnamon/applets/grouped-window-list@cinnamon.org"
 
-echo "INSTALL COMPLETE, PRESS ENTER TO CLOSE"
+echo "INSTALL COMPLETE. LOGOUT OR RESTART CINNAMON TO APPLY. PRESS ENTER TO CLOSE"
 read hold

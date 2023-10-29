@@ -19,5 +19,5 @@ if [ -d "$targetDir" ]; then
     rm -r "$targetDir"
 fi
 
-echo "UNINSTALL COMPLETE, PRESS ENTER TO CLOSE"
+echo "UNINSTALL COMPLETE. LOGOUT OR RESTART CINNAMON TO APPLY. PRESS ENTER TO CLOSE"
 read hold
