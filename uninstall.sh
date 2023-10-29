@@ -15,9 +15,8 @@ fi
 # Copy the altered extension
 alteredDir="/home/$USER/.local/share/cinnamon/applets/grouped-window-list@cinnamon.org"
 
-if [ -d "$targetDir" ]; then
-    rm -r "$targetDir"
+if [ -d "$alteredDir" ]; then
+    rm -r "$alteredDir"
 fi
 
-echo "UNINSTALL COMPLETE. LOGOUT OR RESTART CINNAMON TO APPLY. PRESS ENTER TO CLOSE"
-read hold
+echo "UNINSTALL COMPLETE. LOGOUT OR RESTART CINNAMON TO APPLY."
