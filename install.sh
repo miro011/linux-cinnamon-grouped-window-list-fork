@@ -21,3 +21,5 @@ scriptFolderDir=$(dirname "$0")
 cp -r "$scriptFolderDir/grouped-window-list@cinnamon.org" "/home/$USER/.local/share/cinnamon/applets/grouped-window-list@cinnamon.org"
 
 echo "INSTALL COMPLETE. LOGOUT OR RESTART CINNAMON TO APPLY."
+echo "PRESS ENTER TO CLOSE"
+read hold
