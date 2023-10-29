@@ -20,3 +20,5 @@ if [ -d "$alteredDir" ]; then
 fi
 
 echo "UNINSTALL COMPLETE. LOGOUT OR RESTART CINNAMON TO APPLY."
+echo "PRESS ENTER TO CLOSE"
+read hold
