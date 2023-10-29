@@ -585,11 +585,8 @@ class GroupedWindowListApplet extends Applet.Applet {
 
     updateAppButtonsMargin() {
         each(this.appLists, (workspace) => {
-            each(workspace.appList, (appGroup, index, array) => {
-                // Don't set margin for the last icon, so it's properly centered
-                if (index < array.length - 1) {
-                    appGroup.setMargin();
-                }
+            each(workspace.appList, (appGroup) => {
+                appGroup.setMargin();
             });
         });
     }
