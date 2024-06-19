@@ -249,7 +249,7 @@ class AppGroup {
     }
 
     setIconPadding(panelHeight) {
-        this.iconBox.style = 'padding: 0px';
+        this.iconBox.style = `padding: 0px; width: ${this.iconSize}px; height: ${this.iconSize}px;`;
         if (!this.state.isHorizontal) return;
         this.actor.style = 'padding-left: 0px; padding-right: 0px;';
     }
@@ -258,7 +258,7 @@ class AppGroup {
         const applet = this.state.appletActor;
         const direction = this.state.isHorizontal ? 'right' : 'bottom';
         const existingStyle = this.actor.style ? this.actor.style : '';
-        let spacing = parseInt(applet.get_theme_node().get_length('spacing'));
+        let spacing = this.state.settings.appButtonsMargin;
         if (!spacing) {
             spacing = 6;
         }
@@ -281,6 +281,8 @@ class AppGroup {
                 icon_size: this.iconSize
             });
         }
+
+        icon.icon_size = this.iconSize - parseInt(this.state.settings.appButtonsPadding);
 
         const oldChild = this.iconBox.get_child();
         this.iconBox.set_child(icon);

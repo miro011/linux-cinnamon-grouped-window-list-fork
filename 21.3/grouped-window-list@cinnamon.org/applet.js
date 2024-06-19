@@ -297,6 +297,8 @@ class GroupedWindowListApplet extends Applet.Applet {
         const settingsProps = [
             {key: 'group-apps', value: 'groupApps', cb: this.refreshCurrentAppList},
             {key: 'enable-app-button-dragging', value: 'enableDragging', cb: this.draggableSettingChanged},
+            {key: 'app-buttons-margin', value: 'appButtonsMargin', cb: this.updateAppButtonsMargin},
+            {key: 'app-buttons-padding', value: 'appButtonsPadding', cb: this.updateAppButtonsPadding},
             {key: 'launcher-animation-effect', value: 'launcherAnimationEffect', cb: null},
             {key: 'pinned-apps', value: 'pinnedApps', cb: null},
             {key: 'middle-click-action', value: 'middleClickAction', cb: null},
@@ -572,6 +574,22 @@ class GroupedWindowListApplet extends Applet.Applet {
             workspace.appList.forEach(
                 appGroup => appGroup.setActorAttributes(iconSize)
             );
+        });
+    }
+
+    updateAppButtonsMargin() {
+        each(this.appLists, (workspace) => {
+            each(workspace.appList, (appGroup) => {
+                appGroup.setMargin();
+            });
+        });
+    }
+
+    updateAppButtonsPadding() {
+        each(this.appLists, (workspace) => {
+            each(workspace.appList, (appGroup) => {
+                appGroup.setIcon();
+            });
         });
     }
 
