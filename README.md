@@ -11,6 +11,7 @@ Adds extra options to the grouped window list plugin for the Cinnamon desktop en
 - To run the scirpt, open a terminal in the folder install.sh is in and run "bash install.sh"
   - Don't run the installer/uninstaller with sudo! You will be prompted for a password after you run the script!
 - After install, either restart Cinnamon or log out to take effect
+- To uninstall, simply run the uninstall.sh script - the same way as install.sh
 
 ## Preview
 

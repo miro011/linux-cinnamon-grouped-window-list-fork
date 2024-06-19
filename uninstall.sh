@@ -10,15 +10,12 @@ if [ -d "$disabledDir" ]; then
     fi
     sudo cp -r "$disabledDir" "$origDir"
     sudo rm -r "$disabledDir"
+
+    echo "UNINSTALL COMPLETE. LOGOUT OR RESTART CINNAMON TO APPLY."
+    echo "PRESS ENTER TO CLOSE"
+    read hold
+else
+    echo "NOTHING TO UNINSTALL"
+    echo "PRESS ENTER TO CLOSE"
+    read hold
 fi
-
-# Delete the altered extension
-alteredDir="/home/$USER/.local/share/cinnamon/applets/grouped-window-list@cinnamon.org"
-
-if [ -d "$alteredDir" ]; then
-    rm -r "$alteredDir"
-fi
-
-echo "UNINSTALL COMPLETE. LOGOUT OR RESTART CINNAMON TO APPLY."
-echo "PRESS ENTER TO CLOSE"
-read hold
