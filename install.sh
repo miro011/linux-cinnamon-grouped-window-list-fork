@@ -1,5 +1,14 @@
 #!/bin/bash
 
+scriptFolderDir=$(dirname "$0")
+moddedDir="$scriptFolderDir/grouped-window-list@cinnamon.org"
+if ! [ -d "$moddedDir" ]; then
+    echo "You need to copy or move the modded extension folder of the one that matches your Linux Mint version to the folder install.sh is in."
+    echo "SCRIPT FAILED, PRESS ENTER TO CLOSE"
+    read hold
+    exit 1
+fi
+
 # Back up the original
 origDir="/usr/share/cinnamon/applets/grouped-window-list@cinnamon.org"
 disabledDir="/usr/share/cinnamon/applets/disabled/grouped-window-list@cinnamon.org"
@@ -16,15 +25,7 @@ if [ -d "$origDir" ]; then
 fi
 
 # Copy the modded extension
-scriptFolderDir=$(dirname "$0")
-moddedDir="$scriptFolderDir/grouped-window-list@cinnamon.org"
-if [ -d "$moddedDir" ]; then
-    sudo cp -r "$moddedDir" "$origDir"
-    echo "INSTALL COMPLETE. LOGOUT OR RESTART CINNAMON TO APPLY."
-    echo "PRESS ENTER TO CLOSE"
-    read hold
-else
-    echo "You need to copy or move the modded extension folder of the one that matches your Linux Mint version to the folder install.sh is in."
-    echo "SCRIPT FAILED, PRESS ENTER TO CLOSE"
-    read hold
-fi
+sudo cp -r "$moddedDir" "$origDir"
+echo "INSTALL COMPLETE. LOGOUT OR RESTART CINNAMON TO APPLY."
+echo "PRESS ENTER TO CLOSE"
+read hold

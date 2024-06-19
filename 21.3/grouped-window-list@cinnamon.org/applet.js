@@ -578,18 +578,22 @@ class GroupedWindowListApplet extends Applet.Applet {
     }
 
     updateAppButtonsMargin() {
-        each(this.appLists, (workspace) => {
-            each(workspace.appList, (appGroup) => {
-                appGroup.setMargin();
-            });
+        this.appLists.forEach( workspace => {
+            if (!workspace) return;
+
+            workspace.appList.forEach(
+                appGroup => appGroup.setActorAttributes()
+            );
         });
     }
 
     updateAppButtonsPadding() {
-        each(this.appLists, (workspace) => {
-            each(workspace.appList, (appGroup) => {
-                appGroup.setIcon();
-            });
+        this.appLists.forEach( workspace => {
+            if (!workspace) return;
+
+            workspace.appList.forEach(
+                appGroup => appGroup.setActorAttributes()
+            );
         });
     }
 
