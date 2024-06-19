@@ -1,0 +1,38 @@
+**********************************
+MARGIN:
+
+The magin is pretty simple. By default it's set to use whatever the theme you have defines it as, so we replace that line, making it use whatever margin the user provides in the inputs for this extension:
+
+appGroup.js => setMargin()
+    let spacing = this.state.settings.appButtonsMargin;
+
+
+**********************************
+PADDING:
+
+The padding needs to be set by directly changing the width and height of the icon instead of the padding for the actual iconBox.
+The iconBox includes not just the icon, but also the indicator (and whatever else is in it).
+
+
+appGroup.js => setIcon()
+    add a line towards the end, so that the icon size is decreased based on the padding user input:
+        icon.icon_size = this.iconSize - parseInt(this.state.settings.appButtonsPadding);
+
+appGroup.js => setIconPadding()
+    change the first line, where it sets the style of the iconBox, so that the width and height are set to what they typically would be, without the above adjustment - creating the padding effect:
+        this.iconBox.style = `padding: 0px; width: ${this.iconSize}px; height: ${this.iconSize}px;`;
+
+**********************************
+GUI
+
+To add the options to make the above work, we edit: 
+
+applet.js
+    The settingsProps variable in bindSettings maps the keys defined in "settings-schema.json" to a value to use within the script and a function to run when those settings are changed (cb)
+    Then you just add those functions later in the class (should be just a copy paste of what I figured out before)
+        Essentially, loop through all the app lists and groups and run the setMargin / setIcon() functions
+
+settings-schema.json
+    This defines the type of GUI items and in which menu to be. Just copy-paste or look at how the rest of that file is done and replicate
+    app-buttons-margin and app-buttons-padding both go into appButtonsSection
+    and then they're defined later on
