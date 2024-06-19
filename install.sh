@@ -3,10 +3,9 @@
 # Back up the original
 origDir="/usr/share/cinnamon/applets/grouped-window-list@cinnamon.org"
 disabledDir="/usr/share/cinnamon/applets/disabled/grouped-window-list@cinnamon.org"
-if [ -d "$origDir" ]; then
-    if [ -d "$disabledDir" ]; then
-        sudo rm -r "$disabledDir"
-    fi
+
+# If a disabled dir already exists, it means it was already backed up, so no need to back up (plus it would result in backing up the altered version)
+if [ -d "$origDir" ] && ! [ -d "$disabledDir" ]; then
     sudo mkdir -p "/usr/share/cinnamon/applets/disabled"
     sudo cp -r "$origDir" "$disabledDir"
     sudo rm -r "$origDir"
