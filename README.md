@@ -16,6 +16,6 @@ Adds extra options to the grouped window list plugin for the Cinnamon desktop en
 ## Preview
 
 <video width="320" height="240" controls>
-  <source src="preview.mp4" type="video/mp4">
+  <source src="video.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
