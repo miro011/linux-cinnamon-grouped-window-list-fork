@@ -15,4 +15,4 @@ Adds extra options to the grouped window list plugin for the Cinnamon desktop en
 
 ## Preview
 
-![Preview](preview.gif)
+![Preview](video.mp4)
