@@ -42,8 +42,15 @@
         "number-display",
         "pinned-apps",
         "enable-app-button-dragging",
+        "spacing-override",
         "app-buttons-margin",
-        "app-buttons-padding"
+        "app-buttons-padding",
+        "indicator-override",
+        "indicator-position",
+        "indicator-thickness",
+        "indicator-color-active",
+        "indicator-color-hover",
+        "indicator-color-focus"
       ]
     },
     "hotKeysSection": {
@@ -156,7 +163,13 @@
     "default": true,
     "description": "Enable app button dragging"
   },
+  "spacing-override": {
+    "type": "checkbox",
+    "default": false,
+    "description": "SPACING - OVERRIDE THEME"
+  },
   "app-buttons-margin": {
+    "dependency": "spacing-override",
     "type": "spinbutton",
     "default": 0,
     "min": 0,
@@ -166,6 +179,7 @@
     "description": "Distance between buttons"
   },
   "app-buttons-padding": {
+    "dependency": "spacing-override",
     "type": "spinbutton",
     "default": 0,
     "min": 0,
@@ -173,6 +187,51 @@
     "step": 1,
     "units": "px",
     "description": "Space inside buttons"
+  },
+  "indicator-override": {
+    "type": "checkbox",
+    "default": false,
+    "description": "INDICATOR - OVERRIDE THEME"
+  },
+  "indicator-position": {
+    "dependency": "indicator-override",
+    "type": "combobox",
+    "default": "bottom",
+    "description": "Indicator position",
+    "options": {
+      "top": "top",
+      "bottom": "bottom",
+      "left": "left",
+      "right": "right"
+    }
+  },
+  "indicator-thickness": {
+    "dependency": "indicator-override",
+    "type": "spinbutton",
+    "default": 1,
+    "min": 1,
+    "max": 5,
+    "step": 1,
+    "units": "px",
+    "description": "Indicator thickness"
+  },
+  "indicator-color-active": {
+    "dependency": "indicator-override",
+    "type": "colorchooser",
+    "default": "#8a8a8a",
+    "description": "Indicator color for active windows"
+  },
+  "indicator-color-hover": {
+    "dependency": "indicator-override",
+    "type": "colorchooser",
+    "default": "#ffffff",
+    "description": "Indicator color on hover"
+  },
+  "indicator-color-focus": {
+    "dependency": "indicator-override",
+    "type": "colorchooser",
+    "default": "#ffffff",
+    "description": "Indicator color for focused window"
   },
   "launcher-animation-effect": {
     "type": "combobox",

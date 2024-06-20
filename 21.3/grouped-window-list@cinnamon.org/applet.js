@@ -297,8 +297,15 @@ class GroupedWindowListApplet extends Applet.Applet {
         const settingsProps = [
             {key: 'group-apps', value: 'groupApps', cb: this.refreshCurrentAppList},
             {key: 'enable-app-button-dragging', value: 'enableDragging', cb: this.draggableSettingChanged},
-            {key: 'app-buttons-margin', value: 'appButtonsMargin', cb: this.updateAppButtonsMargin},
-            {key: 'app-buttons-padding', value: 'appButtonsPadding', cb: this.updateAppButtonsPadding},
+            {key: 'spacing-override', value: 'spacingOverride', cb: this.updateSpacing},
+            {key: 'app-buttons-margin', value: 'appButtonsMargin', cb: this.updateSpacing},
+            {key: 'app-buttons-padding', value: 'appButtonsPadding', cb: this.updateSpacing},
+            {key: 'indicator-override', value: 'indicatorOverride', cb: this.applyCustomIndicatorStyle},
+            {key: 'indicator-position', value: 'indicatorPosition', cb: this.applyCustomIndicatorStyle},
+            {key: 'indicator-thickness', value: 'indicatorThickness', cb: this.applyCustomIndicatorStyle},
+            {key: 'indicator-color-active', value: 'indicatorColorActive', cb: this.applyCustomIndicatorStyle},
+            {key: 'indicator-color-hover', value: 'indicatorColorHover', cb: this.applyCustomIndicatorStyle},
+            {key: 'indicator-color-focus', value: 'indicatorColorFocus', cb: this.applyCustomIndicatorStyle},
             {key: 'launcher-animation-effect', value: 'launcherAnimationEffect', cb: null},
             {key: 'pinned-apps', value: 'pinnedApps', cb: null},
             {key: 'middle-click-action', value: 'middleClickAction', cb: null},
@@ -577,23 +584,24 @@ class GroupedWindowListApplet extends Applet.Applet {
         });
     }
 
-    updateAppButtonsMargin() {
+    updateSpacing() {
         this.appLists.forEach( workspace => {
             if (!workspace) return;
 
-            workspace.appList.forEach(
-                appGroup => appGroup.setActorAttributes()
-            );
+            workspace.appList.forEach( appGroup => {
+                appGroup.setActorAttributes();
+                appGroup.on_orientation_changed(true);
+            });
         });
     }
 
-    updateAppButtonsPadding() {
+    applyCustomIndicatorStyle() {
         this.appLists.forEach( workspace => {
             if (!workspace) return;
 
-            workspace.appList.forEach(
-                appGroup => appGroup.setActorAttributes()
-            );
+            workspace.appList.forEach( appGroup => {
+                appGroup.applyCustomIndicatorStyle();
+            });
         });
     }
 

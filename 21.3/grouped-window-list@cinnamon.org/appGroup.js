@@ -228,6 +228,8 @@ class AppGroup {
         }
 
         if (fromInit) this.groupState.set({groupReady: true});
+
+        this.applyCustomIndicatorStyle();
     }
 
     setActorAttributes(iconSize, metaWindow) {
@@ -249,7 +251,12 @@ class AppGroup {
     }
 
     setIconPadding(panelHeight) {
-        this.iconBox.style = `padding: 0px; width: ${this.iconSize}px; height: ${this.iconSize}px;`;
+        if (this.state.settings.spacingOverride) {
+            this.iconBox.style = `padding: 0px; width: ${this.iconSize}px; height: ${this.iconSize}px;`;
+        }
+        else {
+            this.iconBox.style = 'padding: 0px';
+        }
         if (!this.state.isHorizontal) return;
         this.actor.style = 'padding-left: 0px; padding-right: 0px;';
     }
@@ -258,10 +265,17 @@ class AppGroup {
         const applet = this.state.appletActor;
         const direction = this.state.isHorizontal ? 'right' : 'bottom';
         const existingStyle = this.actor.style ? this.actor.style : '';
-        let spacing = this.state.settings.appButtonsMargin;
+        let spacing;
+        if (this.state.settings.spacingOverride) {
+            spacing = this.state.settings.appButtonsMargin;
+        }
+        else {
+            spacing = parseInt(applet.get_theme_node().get_length('spacing'));
+        }
         if (!spacing) {
             spacing = 6;
         }
+
         this.actor.style = existingStyle + 'margin-' + direction + ':' + spacing + 'px;';
     }
 
@@ -282,7 +296,9 @@ class AppGroup {
             });
         }
 
-        icon.icon_size = this.iconSize - parseInt(this.state.settings.appButtonsPadding);
+        if (this.state.settings.spacingOverride) {
+            icon.icon_size = this.iconSize - parseInt(this.state.settings.appButtonsPadding);
+        }
 
         const oldChild = this.iconBox.get_child();
         this.iconBox.set_child(icon);
@@ -336,6 +352,8 @@ class AppGroup {
             }
             return continueFlashing;
         });
+
+        this.applyCustomIndicatorStyle();
     }
 
     getPreferredWidth(actor, forHeight, alloc) {
@@ -505,6 +523,8 @@ class AppGroup {
             this.initThumbnailMenu();
         }
         this.hoverMenu.onMenuEnter();
+
+        this.applyCustomIndicatorStyle();
     }
 
     onLeave() {
@@ -525,11 +545,14 @@ class AppGroup {
         if (focused) {
             this.actor.add_style_pseudo_class('focus');
         }
+
+        this.applyCustomIndicatorStyle();
     }
 
     resetHoverStatus() {
         if (this.actor.is_finalized()) return;
         this.actor.remove_style_pseudo_class('hover');
+        this.applyCustomIndicatorStyle();
     }
 
     setActiveStatus(state) {
@@ -538,6 +561,8 @@ class AppGroup {
         } else {
             this.actor.remove_style_pseudo_class('active');
         }
+
+        this.applyCustomIndicatorStyle();
     }
 
     averageProgress() {
@@ -605,6 +630,8 @@ class AppGroup {
         }
         this.resetHoverStatus();
         if (lastFocused) this.handleButtonLabel(lastFocused, hasFocus, true);
+
+        this.applyCustomIndicatorStyle();
     }
 
     onWindowDemandsAttention(metaWindow) {
@@ -882,6 +909,8 @@ class AppGroup {
             Main.activateWindow(this.groupState.lastFocused, global.get_current_time());
             this.actor.add_style_pseudo_class('focus');
         }
+
+        this.applyCustomIndicatorStyle();
     }
 
     windowAdded(metaWindow) {
@@ -1136,6 +1165,38 @@ class AppGroup {
                 }
             });
         }
+    }
+
+    applyCustomIndicatorStyle() {
+        // Reset the border style - always done
+        let existingStyle = this.actor.style ? this.actor.style : '';
+        let existingStyleWoBorder = existingStyle.replace(/border: none !important; border-.+; border-color.+;/g, "").replace(/[ ]+/g, " ");
+
+        // Return if indicator override is not on
+        if (!this.state.settings.indicatorOverride) {
+            this.actor.style = existingStyleWoBorder;
+            return;
+        }
+
+        // prep stuff
+        let position = this.state.settings.indicatorPosition;
+        let thickness = this.state.settings.indicatorThickness;
+        let color;
+        if (this.actor.has_style_pseudo_class('hover')) {
+            color = this.state.settings.indicatorColorHover;
+        }
+        else if (this.actor.has_style_pseudo_class('focus')) {
+            color = this.state.settings.indicatorColorFocus;
+        }
+        else {
+            color = this.state.settings.indicatorColorActive;
+        }
+
+        // get existing style and replace old indicator style if needed - then append the new style
+        this.actor.style = existingStyleWoBorder + ` border: none !important; border-${position}: ${thickness}px solid ${color} !important; border-color: ${color} !important; `;
+
+        // functions where this needs to be ran:
+        // on_orientation_changed, onEnter, resetHoverStatus, flashButton, setActiveStatus, onFocusChange, checkFocusStyle, windowHandle
     }
 
     destroy(skipRefCleanup) {

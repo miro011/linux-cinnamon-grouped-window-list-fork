@@ -22,6 +22,17 @@ appGroup.js => setIconPadding()
     change the first line, where it sets the style of the iconBox, so that the width and height are set to what they typically would be, without the above adjustment - creating the padding effect:
         this.iconBox.style = `padding: 0px; width: ${this.iconSize}px; height: ${this.iconSize}px;`;
 
+
+**********************************
+INDICATOR:
+
+Dictated by the border property for "grouped-window-list-item-box"
+
+appGroup.js => on_orientation_changed()
+    add lines that completely override the style
+        let existingStyle = this.actor.style ? this.actor.style : '';
+        this.actor.style = existingStyle + 'border: none !important; border-top: 3px solid !important;';
+
 **********************************
 GUI
 
