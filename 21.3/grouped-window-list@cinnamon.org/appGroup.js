@@ -1188,13 +1188,15 @@ class AppGroup {
         else if (this.actor.has_style_pseudo_class('focus')) {
             color = this.state.settings.indicatorColorFocus;
         }
-        else {
+        else if (this.actor.has_style_pseudo_class('active')) {
             color = this.state.settings.indicatorColorActive;
         }
 
-        // get existing style and replace old indicator style if needed - then append the new style
-        this.actor.style = existingStyleWoBorder + ` border: none !important; border-${position}: ${thickness}px solid ${color} !important; border-color: ${color} !important; `;
-
+        if (color) {
+            // get existing style and replace old indicator style if needed - then append the new style
+            this.actor.style = existingStyleWoBorder + ` border: none !important; border-${position}: ${thickness}px solid ${color} !important; border-color: ${color} !important; `;
+        }
+        
         // functions where this needs to be ran:
         // on_orientation_changed, onEnter, resetHoverStatus, flashButton, setActiveStatus, onFocusChange, checkFocusStyle, windowHandle
     }
